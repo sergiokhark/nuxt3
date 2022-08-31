@@ -1,8 +1,23 @@
 export default [
   {
-    title: "Dashboard",
-    icon: "mdi-view-dashboard-outline",
+    title: "Home",
+    icon: "mdi-home",
     to: "/",
+  },
+  {
+    title: "Users",
+    icon: "mdi-account-multiple",
+    to: "/users",
+  },
+  {
+    title: "Products",
+    icon: "mdi-shopping",
+    to: "/products",
+  },
+  {
+    title: "Orders",
+    icon: "mdi-cart-check",
+    to: "/orders",
   },
   {
     title: "Alerts",
@@ -18,11 +33,6 @@ export default [
     title: "Cards",
     icon: "mdi-card-outline",
     to: "/cards",
-  },
-  {
-    title: "Carousel",
-    icon: "mdi-form-dropdown",
-    to: "/carousel",
   },
   {
     title: "Tables",

@@ -1,13 +1,3 @@
-<script setup lang="ts">
-import BaseCard from "@/components/pages/BaseCard.vue";
-import ButtonsDefault from "@/components/pages/buttons/ButtonsDefault.vue";
-import ButtonsOutlined from "@/components/pages/buttons/ButtonsOutlined.vue";
-import ButtonsBlock from "@/components/pages/buttons/ButtonsBlock.vue";
-import ButtonsIcon from "@/components/pages/buttons/ButtonsIcon.vue";
-import ButtonsRounded from "@/components/pages/buttons/ButtonsRounded.vue";
-import ButtonsSizing from "@/components/pages/buttons/ButtonsSizing.vue";
-</script>
-
 <template>
   <v-row>
     <v-col cols="12" sm="12">
@@ -47,3 +37,13 @@ import ButtonsSizing from "@/components/pages/buttons/ButtonsSizing.vue";
     </v-col>
   </v-row>
 </template>
+
+<script setup lang="ts">
+  import BaseCard from "@/components/pages/BaseCard.vue";
+  import ButtonsDefault from "@/components/pages/buttons/ButtonsDefault.vue";
+  import ButtonsOutlined from "@/components/pages/buttons/ButtonsOutlined.vue";
+  import ButtonsBlock from "@/components/pages/buttons/ButtonsBlock.vue";
+  import ButtonsIcon from "@/components/pages/buttons/ButtonsIcon.vue";
+  import ButtonsRounded from "@/components/pages/buttons/ButtonsRounded.vue";
+  import ButtonsSizing from "@/components/pages/buttons/ButtonsSizing.vue";
+  </script>
