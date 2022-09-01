@@ -19,24 +19,4 @@ export default [
     icon: "mdi-cart-check",
     to: "/orders",
   },
-  {
-    title: "Alerts",
-    icon: "mdi-alert-circle-outline",
-    to: "/alerts",
-  },
-  {
-    title: "Buttons",
-    icon: "mdi-radiobox-blank",
-    to: "/buttons",
-  },
-  {
-    title: "Cards",
-    icon: "mdi-card-outline",
-    to: "/cards",
-  },
-  {
-    title: "Tables",
-    icon: "mdi-table",
-    to: "/tables",
-  },
 ];
