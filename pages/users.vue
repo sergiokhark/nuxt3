@@ -27,27 +27,41 @@
             <td>{{ item.suite }}</td>
             <td>
               <v-icon small class="mr-2" color="#9b999b"> mdi-pencil</v-icon>
-              <v-icon small color="#9b999b"> mdi-delete </v-icon>
+              <v-icon small color="#9b999b" @click="confirmDelUser(item)"> mdi-delete </v-icon>
             </td>
           </tr>
         </tbody>
       </v-table>
       <ModalDialog
         :dialog="addUserDialog"
-        @save="addUser()"
+        formTitle="Add user"
+        @save="addUser"
         @close="closeAddDialog"
       >
         <ModalUsersFields :editedItem="editedItem" />
-      </ModalDialog> 
+      </ModalDialog
+      >
+      
+      
+      <ModalDialog
+        :dialog="delUserDialog"
+        formTitle="Delete user"
+        btnName="Delete"
+        @save="delUser"
+        @close="delUserDialog = false"
+      >
+        <h2>Are you sure?</h2>
+      </ModalDialog>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 
-import useFetchUsers from '~~/hooks/useFetchUsers';
+import useFetchUsers from '~~/hooks/useFetchUsers'
 import useAddUser from '~~/hooks/useAddUser'
-import ModalDialog from '~~/components/modalDialog/ModalDialog.vue';
+import useDelUser from '~~/hooks/useDelUser'
+import ModalDialog from '~~/components/modalDialog/ModalDialog.vue'
 import ModalUsersFields from '~~/components/modalDialog/ModalUsersFields.vue'
 
 export default {
@@ -59,13 +73,17 @@ export default {
   setup() {
     const { users } = useFetchUsers()
     const { addUserDialog, editedItem, addUser, closeAddDialog } = useAddUser()
+    const { delUserDialog, confirmDelUser, delUser } = useDelUser()
   
     return {
       users,
       addUserDialog,
       editedItem,
       addUser,
-      closeAddDialog
+      closeAddDialog,
+      delUserDialog,
+      confirmDelUser,
+      delUser
     }
   }
 }

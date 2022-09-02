@@ -28,7 +28,7 @@
         },
         formTitle: {
           type: String,
-          default: 'Заголовок'
+          default: ''
         },
         created: {
           type: Boolean,
@@ -42,10 +42,10 @@
           type: Boolean,
           default: true
         },
-        dialogWidth: {
-          type: String,
-          default: '700px'
-        }
+        // dialogWidth: {
+        //   type: String,
+        //   default: '700px'
+        // }
       }
     }
               

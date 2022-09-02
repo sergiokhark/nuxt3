@@ -2,7 +2,6 @@ import axios from "axios";
 import { ref } from "vue";
 
 const useAddUser = () => {
-  
   let addUserDialog = ref(false);
   const defaultItem = () => ({
     name: "",
@@ -18,9 +17,9 @@ const useAddUser = () => {
       await axios.post(
         "https://run.mocky.io/v3/b9252bea-324b-44a3-9e49-d6bf561f9914"
       );
-      console.log("+");
+      console.log("Add complete");
     } catch (e) {
-      console.log("-");
+      console.log("Add fail");
     } finally {
       closeAddDialog();
     }
