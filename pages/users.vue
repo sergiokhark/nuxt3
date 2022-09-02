@@ -57,8 +57,8 @@ export default {
   },
   
   setup() {
-    const {users} = useFetchUsers()
-    const {addUserDialog, editedItem, addUser, closeAddDialog} = useAddUser()
+    const { users } = useFetchUsers()
+    const { addUserDialog, editedItem, addUser, closeAddDialog } = useAddUser()
   
     return {
       users,

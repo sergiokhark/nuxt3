@@ -1,10 +1,10 @@
 import axios from "axios";
-import { reactive, ref, nextTick } from "vue";
+import { ref } from "vue";
 
 const useAddUser = () => {
   
   let addUserDialog = ref(false);
-  let editedItem = reactive({
+  const defaultItem = () => ({
     name: "",
     username: "",
     website: "",
@@ -12,14 +12,7 @@ const useAddUser = () => {
     street: "",
     suite: "",
   });
-  const defaultItem = {
-    name: "",
-    username: "",
-    website: "",
-    city: "",
-    street: "",
-    suite: "",
-  };
+  const editedItem = ref(defaultItem())
   const addUser = async () => {
     try {
       await axios.post(
@@ -32,15 +25,9 @@ const useAddUser = () => {
       closeAddDialog();
     }
   };
-  const getDefaultItem = () => {
-    nextTick(() => {
-      editedItem = Object.assign({}, defaultItem )
-      //console.log(editedItem)
-    });
-  };
   const closeAddDialog = () => {
     addUserDialog.value = false;
-    getDefaultItem();
+    editedItem.value = defaultItem()
   };
   return {
     addUserDialog, 
