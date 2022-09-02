@@ -26,7 +26,7 @@
             <td>{{ item.street }}</td>
             <td>{{ item.suite }}</td>
             <td>
-              <v-icon small class="mr-2" color="#9b999b"> mdi-pencil</v-icon>
+              <v-icon small class="mr-2" color="#9b999b" @click="editUser(item)"> mdi-pencil</v-icon>
               <v-icon small color="#9b999b" @click="confirmDelUser(item)"> mdi-delete </v-icon>
             </td>
           </tr>
@@ -38,11 +38,16 @@
         @save="addUser"
         @close="closeAddDialog"
       >
-        <ModalUsersFields :editedItem="editedItem" />
-      </ModalDialog
+        <ModalUsersFields :editedItem="addedItem" />
+      </ModalDialog>
+      <ModalDialog
+        :dialog="editUserDialog"
+        formTitle="Edit user"
+        @save="save"
+        @close="closeEditDialog"
       >
-      
-      
+        <ModalUsersFields :editedItem="editedItem" />
+      </ModalDialog>
       <ModalDialog
         :dialog="delUserDialog"
         formTitle="Delete user"
@@ -61,6 +66,7 @@
 import useFetchUsers from '~~/hooks/useFetchUsers'
 import useAddUser from '~~/hooks/useAddUser'
 import useDelUser from '~~/hooks/useDelUser'
+import useEditUser from '~~/hooks/useEditUser'
 import ModalDialog from '~~/components/modalDialog/ModalDialog.vue'
 import ModalUsersFields from '~~/components/modalDialog/ModalUsersFields.vue'
 
@@ -72,18 +78,14 @@ export default {
   
   setup() {
     const { users } = useFetchUsers()
-    const { addUserDialog, editedItem, addUser, closeAddDialog } = useAddUser()
+    const { addUserDialog, addedItem, addUser, closeAddDialog } = useAddUser()
     const { delUserDialog, confirmDelUser, delUser } = useDelUser()
+    const { editUserDialog, editedItem, editUser, save, closeEditDialog } = useEditUser()
   
     return {
-      users,
-      addUserDialog,
-      editedItem,
-      addUser,
-      closeAddDialog,
-      delUserDialog,
-      confirmDelUser,
-      delUser
+      users, addUserDialog, addedItem, addUser, closeAddDialog,
+      delUserDialog, confirmDelUser, delUser,
+      editUserDialog, editedItem, editUser, save, closeEditDialog
     }
   }
 }

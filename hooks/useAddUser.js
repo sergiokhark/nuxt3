@@ -11,7 +11,7 @@ const useAddUser = () => {
     street: "",
     suite: "",
   });
-  const editedItem = ref(defaultItem())
+  const addedItem = ref(defaultItem())
   const addUser = async () => {
     try {
       await axios.post(
@@ -26,11 +26,11 @@ const useAddUser = () => {
   };
   const closeAddDialog = () => {
     addUserDialog.value = false;
-    editedItem.value = defaultItem()
+    addedItem.value = defaultItem()
   };
   return {
     addUserDialog, 
-    editedItem,
+    addedItem,
     addUser,
     closeAddDialog,
   }
