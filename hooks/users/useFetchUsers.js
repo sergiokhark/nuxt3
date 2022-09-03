@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 
-function useFetchUsers() {
+const useFetchUsers = () => {
   const users = ref([]);
   const fetching = async () => {
     try {

@@ -3,7 +3,6 @@
     <v-card-text>
       <br />
       <h2 class="mb-7">Users data</h2>
-      <v-spacer></v-spacer>
       <v-btn elevation="0" color="primary" size="small" @click="addUserDialog = true">Add user</v-btn>
       <v-table>
         <thead>
