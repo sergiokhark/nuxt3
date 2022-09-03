@@ -63,10 +63,10 @@
 
 <script>
 
-import useFetchUsers from '~~/hooks/useFetchUsers'
-import useAddUser from '~~/hooks/useAddUser'
-import useDelUser from '~~/hooks/useDelUser'
-import useEditUser from '~~/hooks/useEditUser'
+import useFetchUsers from '~~/hooks/users/useFetchUsers'
+import useAddUser from '~~/hooks/users/useAddUser'
+import useDelUser from '~~/hooks/users/useDelUser'
+import useEditUser from '~~/hooks/users/useEditUser'
 import ModalDialog from '~~/components/modalDialog/ModalDialog.vue'
 import ModalUsersFields from '~~/components/modalDialog/ModalUsersFields.vue'
 

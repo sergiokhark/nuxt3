@@ -26,8 +26,11 @@ export default defineNuxtConfig({
       "process.env.DEBUG": false,
     },
   },
-  modules: [
-    
-  ],
+  // modules: [
+  //   '@nuxtjs/auth-next'
+  // ],
+  // auth: {
+  //   // Options
+  // }
   
 });

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ref } from "vue";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const useEditUser = () => {
   let editUserDialog = ref(false);
   const defaultItem = () => ({
@@ -20,9 +22,9 @@ const useEditUser = () => {
   const save = async () => {
     try {
       axios.put("https://run.mocky.io/v3/4d9eea3e-bee2-4531-8665-091365446530");
-      console.log("Edit complete");
+      toast.success('User successfully updated');
     } catch (e) {
-      console.log("Edit fail");
+      toast.error('User update error');
     } finally {
       closeEditDialog();
     }
