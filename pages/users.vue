@@ -4,6 +4,31 @@
       <br />
       <h2 class="mb-7">Users data</h2>
       <v-btn elevation="0" color="primary" size="small" @click="addUserDialog = true">Add user</v-btn>
+      <br />
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="filter.name"
+            label="Name"
+            @input="getFilteredUsers"
+          />
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="filter.username"
+            label="Username"
+            @input="getFilteredUsers"
+          />
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="filter.city"
+            label="City"
+            @input="getFilteredUsers"
+          />
+        </v-col>
+      </v-row>
+      
       <v-table>
         <thead>
           <tr>
@@ -68,24 +93,44 @@ import useDelUser from '~~/hooks/users/useDelUser'
 import useEditUser from '~~/hooks/users/useEditUser'
 import ModalDialog from '~~/components/modalDialog/ModalDialog.vue'
 import ModalUsersFields from '~~/components/modalDialog/ModalUsersFields.vue'
+//import getFilteredItems from '~~/mixins/getFilteredItems'
 
 export default {
   components: {
     ModalDialog,
     ModalUsersFields
   },
+  //mixins: [getFilteredItems],
   
   setup() {
     const { users } = useFetchUsers()
     const { addUserDialog, addedItem, addUser, closeAddDialog } = useAddUser()
     const { delUserDialog, confirmDelUser, delUser } = useDelUser()
     const { editUserDialog, editedItem, editUser, save, closeEditDialog } = useEditUser()
+    const filter = {
+      name: null,
+      username: null,
+      city: null
+    }
+    const getFilteredUsers = () => {
+      let users = useFetchUsers()
+      for (const [key, value] of Object.entries(filter)) {
+        if (value) {
+          users = users.filter((itm) => itm[key] === value)
+        }
+      }
+    }
   
     return {
-      users, addUserDialog, addedItem, addUser, closeAddDialog,
+      users, filter, addUserDialog, addedItem, addUser, closeAddDialog,
       delUserDialog, confirmDelUser, delUser,
-      editUserDialog, editedItem, editUser, save, closeEditDialog
+      editUserDialog, editedItem, editUser, save, closeEditDialog,
+      getFilteredUsers
     }
   }
 }
 </script>
+
+<style scoped>
+
+</style>
