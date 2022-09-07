@@ -50,7 +50,7 @@
             <td>{{ item.street }}</td>
             <td>{{ item.suite }}</td>
             <td>
-              <v-icon small class="mr-2" color="#9b999b" @click="editUser(item)"> mdi-pencil</v-icon>
+              <v-icon small class="mr-2" color="#9b999b" @click="open(item.id)"> mdi-pencil</v-icon>
               <v-icon small color="#9b999b" @click="confirmDelUser(item)"> mdi-delete </v-icon>
             </td>
           </tr>
@@ -93,6 +93,7 @@ import useDelUser from '~~/hooks/users/useDelUser'
 import useEditUser from '~~/hooks/users/useEditUser'
 import ModalDialog from '~~/components/modalDialog/ModalDialog.vue'
 import ModalUsersFields from '~~/components/modalDialog/ModalUsersFields.vue'
+import { useRouter } from 'vue-router'
 //import getFilteredItems from '~~/mixins/getFilteredItems'
 
 export default {
@@ -107,6 +108,7 @@ export default {
     const { addUserDialog, addedItem, addUser, closeAddDialog } = useAddUser()
     const { delUserDialog, confirmDelUser, delUser } = useDelUser()
     const { editUserDialog, editedItem, editUser, save, closeEditDialog } = useEditUser()
+    const router = useRouter()
     const filter = {
       name: null,
       username: null,
@@ -120,12 +122,15 @@ export default {
         }
       }
     }
+    const open = (id) => {
+      router.push('/user/' + id)
+    }
   
     return {
       users, filter, addUserDialog, addedItem, addUser, closeAddDialog,
       delUserDialog, confirmDelUser, delUser,
       editUserDialog, editedItem, editUser, save, closeEditDialog,
-      getFilteredUsers
+      getFilteredUsers, open
     }
   }
 }
