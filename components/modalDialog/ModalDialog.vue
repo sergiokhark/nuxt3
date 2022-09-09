@@ -42,10 +42,6 @@
           type: Boolean,
           default: true
         },
-        // dialogWidth: {
-        //   type: String,
-        //   default: '700px'
-        // }
       }
     }
               

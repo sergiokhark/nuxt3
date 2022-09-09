@@ -1,0 +1,67 @@
+<template>
+  <v-card>
+    <v-card-text>
+      <br />
+      <h2 class="mb-7">{{ title }}</h2>
+      <v-container>
+        <ModalUsersFields :editedItem="user" />
+      </v-container>
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn to="/users" color="blue darken-1"> Cancel </v-btn>
+      <v-btn v-if="!createBtn" to="/users" color="blue darken-1" @click="addUser"> Create </v-btn>
+      <v-btn v-if="createBtn" to="/users" color="blue darken-1" @click="save"> Update </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
+
+<script>
+import axios from "axios";
+import ModalUsersFields from "~~/components/modalDialog/ModalUsersFields.vue";
+import useAddUser from '~~/hooks/users/useAddUser'
+import useEditUser from '~~/hooks/users/useEditUser'
+
+export default {
+  components: {
+    ModalUsersFields
+  },
+  setup() {
+    const { addUser } = useAddUser()
+    const { save } = useEditUser()
+
+    return {
+      addUser, save
+    }
+  },
+  data() {
+    return {
+      user: {},
+      title: "",
+      createBtn: true
+    };
+  },
+  async mounted() {
+    if (this.$route.params.id !== 'create') {
+      this.title = "Edit user"
+      const res = await axios.get(
+        "https://run.mocky.io/v3/a9a0cd8f-1f8b-432f-a50e-0e5018d90802"
+      );
+      this.user = res.data
+    } else {
+      this.title = "Add user"
+      this.createBtn = false
+      this.user = {
+        name: '',
+        username: '',
+        site: '',
+        address: {
+          city: '',
+          street: '',
+          suite: ''
+        }
+      }
+    }
+  }, 
+};
+</script>
