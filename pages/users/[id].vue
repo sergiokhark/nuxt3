@@ -36,7 +36,16 @@ export default {
   },
   data() {
     return {
-      user: {},
+      user: {
+          name: '',
+          username: '',
+          website: '',
+          address: {
+            city: '',
+            street: '',
+            suite: ''
+          }
+        },
       title: "",
       createBtn: true
     };
@@ -45,8 +54,9 @@ export default {
     if (this.$route.params.id !== 'create') {
       this.title = "Edit user"
       const res = await axios.get(
-        "https://run.mocky.io/v3/a9a0cd8f-1f8b-432f-a50e-0e5018d90802"
+        "https://jsonplaceholder.typicode.com/users/" + this.$route.params.id
       );
+      
       this.user = res.data
     } else {
       this.title = "Add user"

@@ -17,17 +17,17 @@
       </v-col>
       <v-col cols="12" sm="6" md="4">
         <div class="text-field">
-          <input class="text-field__input" type="text" name="city" id="city" placeholder="City" v-model="editedItem.city">
+          <input class="text-field__input" type="text" name="city" id="city" placeholder="City" v-model="editedItem.address.city">
         </div>
       </v-col>
       <v-col cols="12" sm="6" md="4">
         <div class="text-field">
-          <input class="text-field__input" type="text" name="street" id="street" placeholder="Street" v-model="editedItem.street">
+          <input class="text-field__input" type="text" name="street" id="street" placeholder="Street" v-model="editedItem.address.street">
         </div>
       </v-col>
       <v-col cols="12" sm="6" md="4">
         <div class="text-field">
-          <input class="text-field__input" type="text" name="suite" id="suite" placeholder="Suite" v-model="editedItem.suite">
+          <input class="text-field__input" type="text" name="suite" id="suite" placeholder="Suite" v-model="editedItem.address.suite">
         </div>
       </v-col>
     </v-row>

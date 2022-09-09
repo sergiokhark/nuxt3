@@ -21,9 +21,9 @@
             <td>{{ item.name }}</td>
             <td>{{ item.username }}</td>
             <td>{{ item.website }}</td>
-            <td>{{ item.city }}</td>
-            <td>{{ item.street }}</td>
-            <td>{{ item.suite }}</td>
+            <td>{{ item.address.city }}</td>
+            <td>{{ item.address.street }}</td>
+            <td>{{ item.address.suite }}</td>
             <td>
               <v-icon small class="mr-2" color="#9b999b" @click="open(item.id)"> mdi-pencil</v-icon>
               <v-icon small color="#9b999b" @click="confirmDelUser(item)"> mdi-delete </v-icon>
