@@ -1,9 +1,41 @@
 <template>
-    <v-card>
+  <v-card>
     <v-card-text>
       <br />
       <h2 class="mb-7">Users data</h2>
-      <v-btn elevation="0" color="primary" size="small" @click="open('create')">Add user</v-btn>
+      <v-btn elevation="0" color="primary" size="small" @click="open('create')"
+        >Add user</v-btn
+      >
+      <br />
+      <v-row>
+        <v-col>
+          <input
+          class="text-field__input"
+          type="text"
+          placeholder="Name"
+          v-model="filter.name"
+          @input="getFilteredUsers"
+        />
+        </v-col>
+        <v-col>
+          <input
+          class="text-field__input"
+          type="text"
+          placeholder="Username"
+          v-model="filter.username"
+          @input="getFilteredUsers"
+        />
+        </v-col>
+        <v-col>
+          <input
+          class="text-field__input"
+          type="text"
+          placeholder="Site"
+          v-model="filter.website"
+          @input="getFilteredUsers"
+        />
+        </v-col>
+      </v-row>
       <v-table>
         <thead>
           <tr>
@@ -25,8 +57,12 @@
             <td>{{ item.address.street }}</td>
             <td>{{ item.address.suite }}</td>
             <td>
-              <v-icon small class="mr-2" color="#9b999b" @click="open(item.id)"> mdi-pencil</v-icon>
-              <v-icon small color="#9b999b" @click="confirmDelUser(item)"> mdi-delete </v-icon>
+              <v-icon small class="mr-2" color="#9b999b" @click="open(item.id)">
+                mdi-pencil</v-icon
+              >
+              <v-icon small color="#9b999b" @click="confirmDelUser(item)">
+                mdi-delete
+              </v-icon>
             </td>
           </tr>
         </tbody>
@@ -45,33 +81,48 @@
 </template>
 
 <script>
-
-import useFetchUsers from '~~/hooks/users/useFetchUsers'
-import useDelUser from '~~/hooks/users/useDelUser'
-import ModalDialog from '~~/components/modalDialog/ModalDialog.vue'
-import { useRouter } from 'vue-router'
+import useFetchUsers from "~~/hooks/users/useFetchUsers";
+import getFilteredItems from '~~/mixins/getFilteredItems'
+import useDelUser from "~~/hooks/users/useDelUser";
+import ModalDialog from "~~/components/modalDialog/ModalDialog.vue";
+import { useRouter } from "vue-router";
 
 export default {
   components: {
     ModalDialog,
   },
-  setup() {
-    const { users } = useFetchUsers()
-    const { delUserDialog, confirmDelUser, delUser } = useDelUser()
-    const router = useRouter()
-    const open = (id) => {
-      router.push('/users/' + id)
+  mixins: [getFilteredItems],
+  data() {
+    return {
+      filter: {
+        name: null,
+        username: null,
+        website: null,
+      },
+    };
+  },
+  methods: {
+    getFilteredUsers() {
+      this.users = this.getFilteredItems(this.users, this.filter)
     }
-  
+  },
+  setup() {
+    const { users } = useFetchUsers();
+    const { delUserDialog, confirmDelUser, delUser } = useDelUser();
+    const router = useRouter();
+    const open = (id) => {
+      router.push("/users/" + id);
+    };
+
     return {
       users,
-      delUserDialog, confirmDelUser, delUser,
-      open
-    }
-  }
-}
+      delUserDialog,
+      confirmDelUser,
+      delUser,
+      open,
+    };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

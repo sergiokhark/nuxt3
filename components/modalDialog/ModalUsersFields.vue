@@ -44,7 +44,7 @@
   }
   </script>
 
-  <style scoped>
+  <style>
 .text-field {
       margin-bottom: 1rem;
     }
