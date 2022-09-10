@@ -2,9 +2,9 @@
   <v-card>
     <v-card-text>
       <br />
-      <h2 class="mb-7">Users data</h2>
+      <h2 class="mb-7">Products data</h2>
       <v-btn elevation="0" color="primary" size="small" @click="open('create')"
-        >Add user</v-btn
+        >Add product</v-btn
       >
       <br />
       <v-row>
@@ -14,25 +14,25 @@
             type="text"
             placeholder="Name"
             v-model="filter.name"
-            @input="getFilteredUsers"
+            @input="getFilteredProducts"
           />
         </v-col>
         <v-col>
           <input
             class="text-field__input"
             type="text"
-            placeholder="Username"
-            v-model="filter.username"
-            @input="getFilteredUsers"
+            placeholder="Type"
+            v-model="filter.type"
+            @input="getFilteredProducts"
           />
         </v-col>
         <v-col>
           <input
             class="text-field__input"
             type="text"
-            placeholder="Site"
-            v-model="filter.website"
-            @input="getFilteredUsers"
+            placeholder="Brand"
+            v-model="filter.brand"
+            @input="getFilteredProducts"
           />
         </v-col>
       </v-row>
@@ -40,27 +40,25 @@
         <thead>
           <tr>
             <th class="text-left">Name</th>
-            <th class="text-left">Username</th>
-            <th class="text-left">Site</th>
-            <th class="text-left">City</th>
-            <th class="text-left">Street</th>
-            <th class="text-left">Suite</th>
+            <th class="text-left">Type</th>
+            <th class="text-left">Brand</th>
+            <th class="text-left">Price</th>
+            <th class="text-left">Currency</th>
             <th class="text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in users" :key="item.id">
+          <tr v-for="item in products" :key="item.id">
             <td>{{ item.name }}</td>
-            <td>{{ item.username }}</td>
-            <td>{{ item.website }}</td>
-            <td>{{ item.address.city }}</td>
-            <td>{{ item.address.street }}</td>
-            <td>{{ item.address.suite }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.brand }}</td>
+            <td>{{ item.real_price.amount }}</td>
+            <td>{{ item.real_price.currency }}</td>
             <td>
               <v-icon small class="mr-2" color="#9b999b" @click="open(item.id)">
                 mdi-pencil</v-icon
               >
-              <v-icon small color="#9b999b" @click="confirmDelUser(item)">
+              <v-icon small color="#9b999b" @click="confirmDelProduct(item)">
                 mdi-delete
               </v-icon>
             </td>
@@ -68,11 +66,11 @@
         </tbody>
       </v-table>
       <ModalDialog
-        :dialog="delUserDialog"
-        formTitle="Delete user"
+        :dialog="delProductDialog"
+        formTitle="Delete product"
         btnName="Delete"
-        @save="delUser"
-        @close="delUserDialog = false"
+        @save="delProduct"
+        @close="delProductDialog = false"
       >
         <h2>Are you sure?</h2>
       </ModalDialog>
@@ -81,9 +79,9 @@
 </template>
 
 <script>
-import useFetchUsers from "~~/hooks/users/useFetchUsers";
+import useFetchProducts from "~~/hooks/products/useFetchProducts";
 import getFilteredItems from "~~/mixins/getFilteredItems";
-import useDelUser from "~~/hooks/users/useDelUser";
+import useDelProduct from "~~/hooks/products/useDelProduct";
 import ModalDialog from "~~/components/modalDialog/ModalDialog.vue";
 import { useRouter } from "vue-router";
 
@@ -96,33 +94,31 @@ export default {
     return {
       filter: {
         name: null,
-        username: null,
-        website: null,
-      },
+        type: null,
+        brand: null,
+      }
     };
   },
   methods: {
-    getFilteredUsers() {
-      this.users = this.getFilteredItems(this.users, this.filter);
-    },
+    getFilteredProducts() {
+      this.products = this.getFilteredItems(this.products, this.filter)
+    }
   },
   setup() {
-    const { users } = useFetchUsers();
-    const { delUserDialog, confirmDelUser, delUser } = useDelUser();
+    const { products } = useFetchProducts();
+    const { delProductDialog, confirmDelProduct, delProduct } = useDelProduct();
     const router = useRouter();
     const open = (id) => {
-      router.push("/users/" + id);
+      router.push("/products/" + id);
     };
 
     return {
-      users,
-      delUserDialog,
-      confirmDelUser,
-      delUser,
+      products,
+      delProductDialog,
+      confirmDelProduct,
+      delProduct,
       open,
     };
   },
 };
 </script>
-
-<style scoped></style>
