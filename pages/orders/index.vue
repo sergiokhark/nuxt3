@@ -26,8 +26,8 @@
             <td>{{ item.summary.total_due.amount }}</td>
             <td>{{ item.summary.total_due.currency }}</td>
             <td>
-              <v-icon small class="mr-2" color="#9b999b"> mdi-eye</v-icon>
-              <v-icon small color="#9b999b"> mdi-swap-horizontal </v-icon>
+              <v-icon small class="mr-2" color="#9b999b" @click="open(item.id)"> mdi-eye</v-icon>
+              <v-icon small color="#9b999b" @click="changeStatus(item)"> mdi-swap-horizontal </v-icon>
             </td>
           </tr>
         </tbody>
@@ -40,6 +40,7 @@
 <script>
 
 import useFetchOrders from '~~/hooks/orders/useFetchOrders'
+import { useRouter } from "vue-router";
 
 export default {
   components: {
@@ -47,9 +48,20 @@ export default {
   },
   setup() {
     const { orders } = useFetchOrders()
+    const router = useRouter();
+    const changeStatus = (item) => {
+      let temp = item.status_before
+      item.status_before = item.status
+      item.status = temp
+    }
+    const open = (id) => {
+      router.push("/orders/" + id);
+    }
 
     return {
-      orders
+      orders,
+      changeStatus,
+      open
     }
   }
 }

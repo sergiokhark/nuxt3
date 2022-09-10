@@ -2,7 +2,6 @@
 import { ref, onMounted } from "vue";
 import { useDisplay } from "vuetify";
 import Sidebar from "~~/components/layoutComponents/sidebar/Sidebar.vue";
-import Header from "~~/components/layoutComponents/header/Header.vue";
 useMeta({
   title: "My project with Nuxt 3",
 });
@@ -31,10 +30,6 @@ onMounted(() => {
         </div>
         <v-app-bar-nav-icon class="" @click="drawer = !drawer" />
         <v-spacer />
-        <!-- ---------------------------------------------- -->
-        <!-- User Profile -->
-        <!-- ---------------------------------------------- -->
-        <Header />
       </v-app-bar>
       <v-main>
         <!-- ---------------------------------------------- -->
