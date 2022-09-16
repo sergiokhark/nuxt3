@@ -3,9 +3,19 @@
     <v-card-text>
       <br />
       <h2 class="mb-7">Users data</h2>
-      <v-btn elevation="0" color="primary" size="small" @click="open('create')"
-        >Add user</v-btn
-      >
+      <div class="container-buttons">
+        <v-btn class="item"
+          elevation="0"
+          color="primary"
+          size="small"
+          @click="open('create')"
+          >Add user</v-btn
+        >
+        <v-btn class="item"
+        elevation="0" color="primary" size="small" @click="resetFilter"
+          >reset</v-btn
+        >
+      </div>
       <br />
       <v-row>
         <v-col>
@@ -14,7 +24,7 @@
             type="text"
             placeholder="Name"
             v-model="filter.name"
-            @input="getFilteredUsers"
+            @change="getFilteredUsers"
           />
         </v-col>
         <v-col>
@@ -23,7 +33,7 @@
             type="text"
             placeholder="Username"
             v-model="filter.username"
-            @input="getFilteredUsers"
+            @change="getFilteredUsers"
           />
         </v-col>
         <v-col>
@@ -32,7 +42,7 @@
             type="text"
             placeholder="Site"
             v-model="filter.website"
-            @input="getFilteredUsers"
+            @change="getFilteredUsers"
           />
         </v-col>
       </v-row>
@@ -49,7 +59,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in users" :key="item.id">
+          <tr v-for="item in filteredUsers" :key="item.id">
             <td>{{ item.name }}</td>
             <td>{{ item.username }}</td>
             <td>{{ item.website }}</td>
@@ -80,9 +90,9 @@
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
 import useFetchUsers from "~~/hooks/users/useFetchUsers";
-import getFilteredItems from "~~/mixins/getFilteredItems";
+import { Filter, useFilteredItems, useResetFilter } from "~/hooks/useFilter";
 import useDelUser from "~~/hooks/users/useDelUser";
 import ModalDialog from "~~/components/modalDialog/ModalDialog.vue";
 import { useRouter } from "vue-router";
@@ -91,38 +101,54 @@ export default {
   components: {
     ModalDialog,
   },
-  mixins: [getFilteredItems],
-  data() {
-    return {
-      filter: {
-        name: null,
-        username: null,
-        website: null,
-      },
-    };
-  },
-  methods: {
-    getFilteredUsers() {
-      this.users = this.getFilteredItems(this.users, this.filter);
-    },
-  },
   setup() {
     const { users } = useFetchUsers();
     const { delUserDialog, confirmDelUser, delUser } = useDelUser();
     const router = useRouter();
-    const open = (id) => {
-      router.push("/users/" + id);
+    const open = (id: string): void => {
+      router.push(`/users/${id}`);
+    };
+    const filter = ref<Filter>({
+      name: null,
+      username: null,
+      website: null,
+    });
+    const filteredUsers = ref([]);
+    const getFilteredUsers = (): void => {
+      filteredUsers.value = useFilteredItems(users.value, filter.value);
+    };
+    const resetFilter = (): void => {
+      useResetFilter(filter.value);
+      filteredUsers.value = users.value;
     };
 
+    watch(
+      [users],
+      () => {
+        getFilteredUsers();
+      },
+      { deep: true }
+    );
+
     return {
-      users,
+      filteredUsers,
       delUserDialog,
       confirmDelUser,
       delUser,
+      filter,
+      resetFilter,
+      getFilteredUsers,
       open,
     };
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .container-buttons {
+    display: flex;
+  }
+  .item {
+    margin: 0 5px;
+  }
+</style>

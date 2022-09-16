@@ -80,7 +80,7 @@
 
 <script>
 import useFetchProducts from "~~/hooks/products/useFetchProducts";
-import getFilteredItems from "~~/mixins/getFilteredItems";
+
 import useDelProduct from "~~/hooks/products/useDelProduct";
 import ModalDialog from "~~/components/modalDialog/ModalDialog.vue";
 import { useRouter } from "vue-router";
@@ -89,7 +89,7 @@ export default {
   components: {
     ModalDialog,
   },
-  mixins: [getFilteredItems],
+  
   data() {
     return {
       filter: {
