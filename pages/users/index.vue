@@ -91,10 +91,10 @@
 </template>
 
 <script lang="ts">
-import useFetchUsers from "~~/hooks/users/useFetchUsers";
+
+import { useFetchUsers, useDelUser } from '~/hooks/actionUsers'
 import { Filter, useFilteredItems, useResetFilter } from "~/hooks/useFilter";
-import useDelUser from "~~/hooks/users/useDelUser";
-import ModalDialog from "~~/components/modalDialog/ModalDialog.vue";
+import ModalDialog from "~/components/modalDialog/ModalDialog.vue";
 import { useRouter } from "vue-router";
 
 export default {

@@ -1,36 +1,18 @@
 <template>
-  <v-card>
-    <v-card-text>
-      <br />
-      <h2 class="mb-7">{{ title }}</h2>
-      <v-container>
-        <ModalUsersFields :editedItem="user" />
-      </v-container>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn to="/users" color="blue darken-1"> Cancel </v-btn>
-      <v-btn
-        v-if="!createBtn"
-        to="/users"
-        color="blue darken-1"
-        @click="addUser"
-      >
-        Create
-      </v-btn>
-      <v-btn v-if="createBtn" to="/users" color="blue darken-1" @click="save">
-        Update
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+  <ModalUsersFields 
+    :editedItem="user" 
+    :title="title"
+    :createBtn="createBtn"
+    @create="addUser"
+    
+  />
 </template>
 
 <script>
 import axios from "axios";
 import { ref } from "vue";
-import ModalUsersFields from "~~/components/modalDialog/ModalUsersFields.vue";
-import useAddUser from "~~/hooks/users/useAddUser";
-import useEditUser from "~~/hooks/users/useEditUser";
+import ModalUsersFields from "~/components/modalDialog/ModalUsersFields.vue";
+import { useAddUser, useEditUser } from "~/hooks/actionUsers";
 
 export default {
   components: {
@@ -62,19 +44,18 @@ export default {
       this.createBtn = false;
     }
   },
-  setup() {
-    const { addUser } = useAddUser();
+  setup(props) {
+    const { addUser } = useAddUser(props);
     const { save } = useEditUser();
     const title = ref("");
     const createBtn = ref(true);
-    
+
     return {
       addUser,
       save,
       title,
-      createBtn
+      createBtn,
     };
   },
-  
 };
 </script>
