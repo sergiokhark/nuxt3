@@ -18,32 +18,7 @@ export default {
   components: {
     ModalUsersFields,
   },
-  // data() {
-  //   return {
-  //     user: {
-  //       name: "",
-  //       username: "",
-  //       website: "",
-  //       address: {
-  //         city: "",
-  //         street: "",
-  //         suite: "",
-  //       },
-  //     },
-  //   };
-  // },
-  // async mounted() {
-  //   if (this.$route.params.id !== "create") {
-  //     this.title = "Edit user";
-  //     const res = await axios.get(
-  //       "https://jsonplaceholder.typicode.com/users/" + this.$route.params.id
-  //     );
-  //     this.user = res.data;
-  //   } else {
-  //     this.title = "Add user";
-  //     this.createBtn = false;
-  //   }
-  // },
+  
   setup(props) {
     const { addUser } = useAddUser(props);
     const { save } = useEditUser();
@@ -79,6 +54,7 @@ export default {
       save,
       title,
       createBtn,
+      user
     };
   },
 };
