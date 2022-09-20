@@ -3,6 +3,7 @@
     <v-card-text>
       <br />
       <h2 class="mb-7">{{ title }}</h2>
+      <p>Test {{newItem}}</p>
       <v-container>
         <v-row>
           <v-col cols="12" sm="6" md="4">
@@ -13,7 +14,7 @@
                 name="name"
                 id="name"
                 placeholder="Name"
-                v-model="editedItem.name"
+                v-model="newItem.name"
               />
             </div>
           </v-col>
@@ -25,7 +26,7 @@
                 name="username"
                 id="username"
                 placeholder="Username"
-                v-model="editedItem.username"
+                v-model="newItem.username"
               />
             </div>
           </v-col>
@@ -37,7 +38,7 @@
                 name="website"
                 id="website"
                 placeholder="Website"
-                v-model="editedItem.website"
+                v-model="newItem.website"
               />
             </div>
           </v-col>
@@ -49,7 +50,7 @@
                 name="city"
                 id="city"
                 placeholder="City"
-                v-model="editedItem.address.city"
+                v-model="newItem.address.city"
               />
             </div>
           </v-col>
@@ -61,7 +62,7 @@
                 name="street"
                 id="street"
                 placeholder="Street"
-                v-model="editedItem.address.street"
+                v-model="newItem.address.street"
               />
             </div>
           </v-col>
@@ -73,7 +74,7 @@
                 name="suite"
                 id="suite"
                 placeholder="Suite"
-                v-model="editedItem.address.suite"
+                v-model="newItem.address.suite"
               />
             </div>
           </v-col>
@@ -87,7 +88,7 @@
         v-if="!createBtn"
         to="/users"
         color="blue darken-1"
-        @click="$emit('create', editedItem)"
+        @click="$emit('create', newItem)"
       >
         Create
       </v-btn>
@@ -99,6 +100,8 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+
 export default {
   props: {
     editedItem: {
@@ -114,6 +117,13 @@ export default {
       default: true
     }
   },
+  setup(props) {
+    const newItem = computed(() => props.editedItem)
+
+    return {
+      newItem
+    }
+  }
 };
 </script>
 

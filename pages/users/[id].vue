@@ -19,14 +19,14 @@ export default {
     ModalUsersFields,
   },
   props: {
-    editedItem: {
+    newItem: {
       type: Object,
       default: {},
     },
   },
   
   setup(props) {
-    const { addUser } = useAddUser(props.editedItem);
+    const { addUser } = useAddUser(props.newItem);
     const { save } = useEditUser();
     const title = ref("");
     const createBtn = ref(true);
