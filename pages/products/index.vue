@@ -3,9 +3,24 @@
     <v-card-text>
       <br />
       <h2 class="mb-7">Products data</h2>
-      <v-btn elevation="0" color="primary" size="small" @click="open('create')"
-        >Add product</v-btn
-      >
+      <div class="container-buttons">
+        <v-btn
+          class="item"
+          elevation="0"
+          color="primary"
+          size="small"
+          @click="open('create')"
+          >Add product</v-btn
+        >
+        <v-btn
+          class="item"
+          elevation="0"
+          color="primary"
+          size="small"
+          @click="resetFilter"
+          >reset</v-btn
+        >
+      </div>
       <br />
       <v-row>
         <v-col>
@@ -14,7 +29,7 @@
             type="text"
             placeholder="Name"
             v-model="filter.name"
-            @input="getFilteredProducts"
+            @change="getFilteredProducts"
           />
         </v-col>
         <v-col>
@@ -23,7 +38,7 @@
             type="text"
             placeholder="Type"
             v-model="filter.type"
-            @input="getFilteredProducts"
+            @change="getFilteredProducts"
           />
         </v-col>
         <v-col>
@@ -32,7 +47,7 @@
             type="text"
             placeholder="Brand"
             v-model="filter.brand"
-            @input="getFilteredProducts"
+            @change="getFilteredProducts"
           />
         </v-col>
       </v-row>
@@ -48,7 +63,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in products" :key="item.id">
+          <tr v-for="item in filteredProducts" :key="item.id">
             <td>{{ item.name }}</td>
             <td>{{ item.type }}</td>
             <td>{{ item.brand }}</td>
@@ -78,47 +93,55 @@
   </v-card>
 </template>
 
-<script>
-import useFetchProducts from "~~/hooks/products/useFetchProducts";
-
-import useDelProduct from "~~/hooks/products/useDelProduct";
-import ModalDialog from "~~/components/modalDialog/ModalDialog.vue";
-import { useRouter } from "vue-router";
+<script lang="ts">
+import { useFetchProducts, useDelProduct } from "~/hooks/actionProducts"
+import { Filter, useFilteredItems, useResetFilter } from "~/hooks/useFilter"
+import ModalDialog from "~/components/modalDialog/ModalDialog.vue"
+import { useRouter } from "vue-router"
 
 export default {
   components: {
     ModalDialog,
   },
-  
-  data() {
-    return {
-      filter: {
-        name: null,
-        type: null,
-        brand: null,
-      }
-    };
-  },
-  methods: {
-    getFilteredProducts() {
-      this.products = this.getFilteredItems(this.products, this.filter)
-    }
-  },
   setup() {
-    const { products } = useFetchProducts();
-    const { delProductDialog, confirmDelProduct, delProduct } = useDelProduct();
-    const router = useRouter();
-    const open = (id) => {
-      router.push("/products/" + id);
-    };
+    const { products } = useFetchProducts()
+    const { delProductDialog, confirmDelProduct, delProduct } = useDelProduct()
+    const router = useRouter()
+    const open = (id: string): void => {
+      router.push(`/products/${id}`)
+    }
+    const filter = ref<Filter>({
+      name: null,
+      type: null,
+      brand: null,
+    })
+    const filteredProducts = ref([])
+    const getFilteredProducts = (): void => {
+      filteredProducts.value = useFilteredItems(products.value, filter.value)
+    }
+    const resetFilter = (): void => {
+      useResetFilter(filter.value)
+      filteredProducts.value = products.value
+    }
+
+    watch(
+      [products],
+      () => {
+        getFilteredProducts()
+      },
+      { deep: true }
+    )
 
     return {
-      products,
+      filteredProducts,
       delProductDialog,
       confirmDelProduct,
       delProduct,
+      filter,
+      resetFilter,
+      getFilteredProducts,
       open,
-    };
+    }
   },
-};
+}
 </script>

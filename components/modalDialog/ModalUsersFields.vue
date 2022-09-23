@@ -91,7 +91,12 @@
       >
         Create
       </v-btn>
-      <v-btn v-if="createBtn" to="/users" color="blue darken-1" @click="$emit('save')">
+      <v-btn
+        v-if="createBtn"
+        to="/users"
+        color="blue darken-1"
+        @click="$emit('save')"
+      >
         Update
       </v-btn>
     </v-card-actions>
@@ -99,7 +104,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed } from "vue"
 
 export default {
   props: {
@@ -109,21 +114,21 @@ export default {
     },
     title: {
       type: String,
-      default: ''
+      default: "",
     },
     createBtn: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   setup(props) {
     const newItem = computed(() => props.editedItem)
 
     return {
-      newItem
+      newItem,
     }
-  }
-};
+  },
+}
 </script>
 
 <style>

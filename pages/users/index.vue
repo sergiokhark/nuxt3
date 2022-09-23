@@ -148,11 +148,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .container-buttons {
   display: flex;
+  justify-content: flex-start;
 }
 .item {
   margin: 0 5px;
+  
 }
 </style>

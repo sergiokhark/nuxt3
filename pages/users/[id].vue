@@ -4,6 +4,7 @@
     :title="title"
     :createBtn="createBtn"
     @create="addUser"
+    @save="save"
   />
 </template>
 
@@ -13,7 +14,7 @@ import { ref } from "vue"
 import ModalUsersFields from "~/components/modalDialog/ModalUsersFields.vue"
 import { useAddUser, useEditUser } from "~/hooks/actionUsers"
 import { useRoute } from "vue-router"
-import { User } from "~/type/userType"
+import { User } from "~/type/itemsType"
 
 export default {
   components: {
@@ -43,7 +44,7 @@ export default {
       },
     })
 
-    const init = async () => {
+    const init = async (): Promise<void> => {
       title.value = "Add user"
       createBtn.value = false
 
@@ -53,6 +54,7 @@ export default {
           `https://jsonplaceholder.typicode.com/users/${route.params.id}`
         )
         user.value = res.data
+        createBtn.value = true
       }
     }
 
