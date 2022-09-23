@@ -18,3 +18,38 @@ export interface Product {
     currency: string
   }
 }
+
+export interface Order {
+  status_before: string,
+  status: string,
+  number: string,
+  created_at: string,
+  customer: {
+    lastname: string,
+    firstname: string,
+  },
+  summary: {
+    total_due: {
+      amount: number,
+      currency: string,
+    }
+  }
+}
+
+export interface OrderInfo {
+  name: string,
+  brand: string,
+  price: {
+    amount: number,
+    currency: string,
+  },
+  total: {
+    amount: number,
+  },
+  quantity: number,
+  summary: {
+    total_items_amount: {
+      amount: number
+    }
+  }
+}

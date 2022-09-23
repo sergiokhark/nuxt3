@@ -23,11 +23,11 @@
       </tbody>
     </v-table>
     
-    <!-- Этот код если раскомментировать будет ошибка
+    
       
-      <v-card-text>
-        Total:{{ order.summary.total_items_amount.amount }} USD
-      </v-card-text> -->
+      <v-card-text class="summary">
+        <span class="total">Total:</span> {{ order.summary.total_items_amount.amount }} USD
+      </v-card-text>
 
     
   </v-card>
@@ -43,3 +43,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .summary{
+    text-align: right;
+  }
+  .total {
+    font-weight: 600;
+  }
+</style>

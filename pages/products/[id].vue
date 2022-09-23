@@ -1,5 +1,5 @@
 <template>
-  <ModalProductsFields
+  <ProductsFields
     :editedItem="product"
     :title="title"
     :createBtn="createBtn"
@@ -11,14 +11,14 @@
 <script lang="ts">
 import axios from "axios"
 import { ref } from "vue"
-import ModalProductsFields from "~/components/modalDialog/ModalProductsFields.vue"
-import { useAddProduct, useEditProduct } from '~/hooks/actionProducts'
+import ProductsFields from "~/components/pages/ProductsFields.vue"
+import { useAddProduct, useEditProduct } from '~~/hooks/useActionProducts'
 import { useRoute } from "vue-router"
 import { Product } from "~/type/itemsType"
 
 export default {
   components: {
-    ModalProductsFields,
+    ProductsFields,
   },
   props: {
     newItem: {

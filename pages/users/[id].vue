@@ -1,5 +1,5 @@
 <template>
-  <ModalUsersFields
+  <UsersFields
     :editedItem="user"
     :title="title"
     :createBtn="createBtn"
@@ -11,14 +11,14 @@
 <script lang="ts">
 import axios from "axios"
 import { ref } from "vue"
-import ModalUsersFields from "~/components/modalDialog/ModalUsersFields.vue"
-import { useAddUser, useEditUser } from "~/hooks/actionUsers"
+import UsersFields from "~/components/pages/UsersFields.vue"
+import { useAddUser, useEditUser } from "~~/hooks/useActionUsers"
 import { useRoute } from "vue-router"
 import { User } from "~/type/itemsType"
 
 export default {
   components: {
-    ModalUsersFields,
+    UsersFields,
   },
   props: {
     newItem: {

@@ -10,7 +10,6 @@ const props = defineProps({
       <v-toolbar-title class="font-weight-medium">
         {{ heading }}
       </v-toolbar-title>
-
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-divider></v-divider>

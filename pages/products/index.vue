@@ -94,9 +94,9 @@
 </template>
 
 <script lang="ts">
-import { useFetchProducts, useDelProduct } from "~/hooks/actionProducts"
+import { useFetchProducts, useDelProduct } from "~~/hooks/useActionProducts"
 import { Filter, useFilteredItems, useResetFilter } from "~/hooks/useFilter"
-import ModalDialog from "~/components/modalDialog/ModalDialog.vue"
+import ModalDialog from "~/components/pages/ModalDialog.vue"
 import { useRouter } from "vue-router"
 
 export default {
