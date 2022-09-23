@@ -8,11 +8,12 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
-import { ref, onMounted } from "vue";
-import ModalUsersFields from "~/components/modalDialog/ModalUsersFields.vue";
-import { useAddUser, useEditUser } from "~/hooks/actionUsers";
-import { useRoute } from "vue-router";
+import axios from "axios"
+import { ref } from "vue"
+import ModalUsersFields from "~/components/modalDialog/ModalUsersFields.vue"
+import { useAddUser, useEditUser } from "~/hooks/actionUsers"
+import { useRoute } from "vue-router"
+import { User } from "~/type/userType"
 
 export default {
   components: {
@@ -24,14 +25,14 @@ export default {
       default: {},
     },
   },
-  
+
   setup(props) {
-    const { addUser } = useAddUser(props.newItem);
-    const { save } = useEditUser();
-    const title = ref("");
-    const createBtn = ref(true);
-    const route = useRoute();
-    const user = ref({
+    const { addUser } = useAddUser()
+    const { save } = useEditUser()
+    const title = ref<string>("")
+    const createBtn = ref<boolean>(true)
+    const route = useRoute()
+    const user = ref<User>({
       name: "",
       username: "",
       website: "",
@@ -40,28 +41,29 @@ export default {
         street: "",
         suite: "",
       },
-    });
+    })
 
-    onMounted(async () => {
+    const init = async () => {
+      title.value = "Add user"
+      createBtn.value = false
+
       if (route.params.id !== "create") {
-        title.value = "Edit user";
+        title.value = "Edit user"
         const res = await axios.get(
-          "https://jsonplaceholder.typicode.com/users/" + route.params.id
-        );
-        user.value = res.data;
-      } else {
-        title.value = "Add user";
-        createBtn.value = false;
+          `https://jsonplaceholder.typicode.com/users/${route.params.id}`
+        )
+        user.value = res.data
       }
-    });
+    }
 
+    init()
     return {
       addUser,
       save,
       title,
       createBtn,
-      user
-    };
+      user,
+    }
   },
-};
+}
 </script>

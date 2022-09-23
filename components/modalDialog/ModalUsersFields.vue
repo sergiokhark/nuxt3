@@ -3,7 +3,6 @@
     <v-card-text>
       <br />
       <h2 class="mb-7">{{ title }}</h2>
-      <p>Test {{newItem}}</p>
       <v-container>
         <v-row>
           <v-col cols="12" sm="6" md="4">

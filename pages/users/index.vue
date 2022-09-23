@@ -4,15 +4,20 @@
       <br />
       <h2 class="mb-7">Users data</h2>
       <div class="container-buttons">
-        <v-btn class="item"
+        <v-btn
+          class="item"
           elevation="0"
           color="primary"
           size="small"
           @click="open('create')"
           >Add user</v-btn
         >
-        <v-btn class="item"
-        elevation="0" color="primary" size="small" @click="resetFilter"
+        <v-btn
+          class="item"
+          elevation="0"
+          color="primary"
+          size="small"
+          @click="resetFilter"
           >reset</v-btn
         >
       </div>
@@ -91,44 +96,43 @@
 </template>
 
 <script lang="ts">
-
-import { useFetchUsers, useDelUser } from '~/hooks/actionUsers'
-import { Filter, useFilteredItems, useResetFilter } from "~/hooks/useFilter";
-import ModalDialog from "~/components/modalDialog/ModalDialog.vue";
-import { useRouter } from "vue-router";
+import { useFetchUsers, useDelUser } from "~/hooks/actionUsers"
+import { Filter, useFilteredItems, useResetFilter } from "~/hooks/useFilter"
+import ModalDialog from "~/components/modalDialog/ModalDialog.vue"
+import { useRouter } from "vue-router"
 
 export default {
   components: {
     ModalDialog,
   },
   setup() {
-    const { users } = useFetchUsers();
-    const { delUserDialog, confirmDelUser, delUser } = useDelUser();
-    const router = useRouter();
+    const { users } = useFetchUsers()
+    const { delUserDialog, confirmDelUser, delUser } = useDelUser()
+    const router = useRouter()
     const open = (id: string): void => {
-      router.push(`/users/${id}`);
-    };
+      router.push(`/users/${id}`)
+    }
     const filter = ref<Filter>({
       name: null,
       username: null,
       website: null,
-    });
-    const filteredUsers = ref([]);
+    })
+    const filteredUsers = ref([])
     const getFilteredUsers = (): void => {
-      filteredUsers.value = useFilteredItems(users.value, filter.value);
-    };
+      filteredUsers.value = useFilteredItems(users.value, filter.value)
+    }
     const resetFilter = (): void => {
-      useResetFilter(filter.value);
-      filteredUsers.value = users.value;
-    };
+      useResetFilter(filter.value)
+      filteredUsers.value = users.value
+    }
 
     watch(
       [users],
       () => {
-        getFilteredUsers();
+        getFilteredUsers()
       },
       { deep: true }
-    );
+    )
 
     return {
       filteredUsers,
@@ -139,16 +143,16 @@ export default {
       resetFilter,
       getFilteredUsers,
       open,
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped>
-  .container-buttons {
-    display: flex;
-  }
-  .item {
-    margin: 0 5px;
-  }
+.container-buttons {
+  display: flex;
+}
+.item {
+  margin: 0 5px;
+}
 </style>
